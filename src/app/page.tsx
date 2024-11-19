@@ -58,7 +58,7 @@ export default function Home() {
   const [productUrl, setProductUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [productInfo, setProductInfo] = useState(null);
+  const [productInfo, setProductInfo] = useState<BasalamProduct | null>(null);
   const [manualInput, setManualInput] = useState({
     title: '',
     description: '',
