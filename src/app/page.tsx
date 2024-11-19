@@ -142,7 +142,7 @@ export default function Home() {
       const data = await response.json();
       setGeneratedNames(data.suggestions);
     } catch (err) {
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'خطا در تولید نام‌های پیشنهادی');
     } finally {
       setIsGenerating(false);
     }
