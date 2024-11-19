@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'نام‌گذاری هوشمند محصول | Basalam',
+  title: 'نام‌گذاری هوشمند محصول',
   description: 'با کمک هوش مصنوعی، نام‌های خلاقانه برای محصولات خود در باسلام بسازید',
   icons: {
     icon: [
