@@ -382,9 +382,9 @@ export default function Home() {
                   <h3 className="font-semibold">طول نام پیشنهادی</h3>
                   <div className="flex flex-wrap gap-3">
                     {[
-                      { value: 'short', label: 'کوتاه' },
-                      { value: 'medium', label: 'متوسط' },
-                      { value: 'long', label: 'بلند' }
+                      { value: 'short' as const, label: 'کوتاه' },
+                      { value: 'medium' as const, label: 'متوسط' },
+                      { value: 'long' as const, label: 'بلند' }
                     ].map((option) => (
                       <button
                         key={option.value}
