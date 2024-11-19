@@ -31,11 +31,16 @@ type ApiResponse = {
 
 export default function ProductNameForm() {
   const { register, handleSubmit } = useForm<FormData>();
-  const [preferences, setPreferences] = useState({
+  const [preferences, setPreferences] = useState<{
+    includeBrand: boolean;
+    includeCategory: boolean;
+    includeFeatures: boolean;
+    nameLength: 'short' | 'medium' | 'long';
+  }>({
     includeBrand: true,
     includeCategory: true,
     includeFeatures: true,
-    nameLength: 'medium' as const,
+    nameLength: 'medium',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
