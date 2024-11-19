@@ -103,7 +103,7 @@ export default function Home() {
       });
     } catch (err) {
       console.error('Error in fetchProductInfo:', err);
-      setError(err.message);
+      setError(err instanceof Error ? err.message : 'خطا در دریافت اطلاعات محصول');
     } finally {
       setIsLoading(false);
     }
