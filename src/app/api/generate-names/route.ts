@@ -1,6 +1,34 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
+interface Attribute {
+  title: string;
+  value: string;
+  unit?: string;
+}
+
+interface AttributeGroup {
+  title: string;
+  attributes: Attribute[];
+}
+
+interface ProductInfo {
+  title?: string;
+  name?: string;
+  description: string;
+  category: string;
+  brandName?: string;
+  attribute_groups?: AttributeGroup[];
+  attributes?: Attribute[];
+}
+
+interface Preferences {
+  includeBrand: boolean;
+  includeCategory: boolean;
+  includeFeatures: boolean;
+  nameLength: 'short' | 'medium' | 'long';
+}
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   baseURL: "https://oai.helicone.ai/v1",
@@ -30,7 +58,7 @@ async function fetchBasalamProduct(url: string) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { productInfo, preferences } = body;
+    const { productInfo, preferences }: { productInfo: ProductInfo; preferences: Preferences } = body;
 
     const prompt = `
       لطفاً 5 نام مناسب برای یک محصول با مشخصات زیر پیشنهاد دهید:
@@ -42,13 +70,13 @@ export async function POST(request: Request) {
 
       ${productInfo.attribute_groups ? `
       ویژگی‌های محصول:
-      ${productInfo.attribute_groups.map(group => `
+      ${productInfo.attribute_groups.map((group: AttributeGroup) => `
       ${group.title}:
-      ${group.attributes.map(attr => `- ${attr.title}: ${attr.value}${attr.unit ? ` (${attr.unit})` : ''}`).join('\n')}
+      ${group.attributes.map((attr: Attribute) => `- ${attr.title}: ${attr.value}${attr.unit ? ` (${attr.unit})` : ''}`).join('\n')}
       `).join('\n')}
       ` : productInfo.attributes ? `
       ویژگی‌ها:
-      ${productInfo.attributes.map(attr => `- ${attr.title}: ${attr.value}`).join('\n')}
+      ${productInfo.attributes.map((attr: Attribute) => `- ${attr.title}: ${attr.value}`).join('\n')}
       ` : ''}
       
       ترجیحات نام‌گذاری:
@@ -100,25 +128,14 @@ export async function POST(request: Request) {
         },
       ],
       temperature: 0.7,
+      max_tokens: 2000,
+      response_format: { type: "json_object" }
     });
 
-    const response = completion.choices[0].message.content;
-    if (!response) {
-      throw new Error('پاسخی از OpenAI دریافت نشد');
-    }
-
-    try {
-      // حذف کدهای markdown از پاسخ
-      const cleanResponse = response.replace(/```json\n?|\n?```/g, '').trim();
-      const parsedResponse = JSON.parse(cleanResponse);
-      
-      return NextResponse.json(parsedResponse);
-    } catch (parseError) {
-      console.error('Error parsing JSON:', response);
-      throw new Error('پاسخ دریافتی در قالب JSON معتبر نیست');
-    }
+    const result = completion.choices[0].message.content;
+    return NextResponse.json(JSON.parse(result || '{}'));
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error generating names:', error);
     return NextResponse.json(
       { error: 'خطا در تولید نام‌های پیشنهادی' },
       { status: 500 }
