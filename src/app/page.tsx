@@ -59,6 +59,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [productInfo, setProductInfo] = useState<BasalamProduct | null>(null);
+  const [generatedNames, setGeneratedNames] = useState<NameSuggestion[]>([]);
   const [manualInput, setManualInput] = useState({
     title: '',
     description: '',
@@ -73,7 +74,6 @@ export default function Home() {
     includeFeatures: true,
     nameLength: 'medium'
   });
-  const [generatedNames, setGeneratedNames] = useState([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [expandedSections, setExpandedSections] = useState({
     attributes: true,
@@ -406,9 +406,9 @@ export default function Home() {
                   <h3 className="font-semibold">ترجیحات</h3>
                   <div className="flex flex-wrap gap-3">
                     {[
-                      { value: 'includeBrand', label: 'شامل نام برند' },
-                      { value: 'includeCategory', label: 'شامل دسته‌بندی' },
-                      { value: 'includeFeatures', label: 'شامل ویژگی‌ها' }
+                      { value: 'includeBrand' as keyof Omit<Preferences, 'nameLength'>, label: 'شامل نام برند' },
+                      { value: 'includeCategory' as keyof Omit<Preferences, 'nameLength'>, label: 'شامل دسته‌بندی' },
+                      { value: 'includeFeatures' as keyof Omit<Preferences, 'nameLength'>, label: 'شامل ویژگی‌ها' }
                     ].map((option) => (
                       <button
                         key={option.value}
