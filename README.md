@@ -1,99 +1,142 @@
-# نام‌گذاری هوشمند محصول 🎯
+# Smart Product Name Generator 🎯
 
-یک ابزار هوشمند برای تولید نام‌های خلاقانه محصولات در پلتفرم بسلام با استفاده از هوش مصنوعی
+An AI-powered tool to generate creative product names for the Basalam e-commerce platform using artificial intelligence.
 
-## ✨ ویژگی‌ها
+<div align="center">
+  <img src="public/logo.svg" alt="Product Name AI Logo" width="120" />
+</div>
 
-- 🤖 تولید نام هوشمند با استفاده از OpenAI GPT
-- 🔄 دریافت خودکار اطلاعات محصول از لینک بسلام
-- ✍️ امکان ورود دستی اطلاعات محصول
-- 📏 تنظیم طول نام پیشنهادی (کوتاه، متوسط، بلند)
-- 🎯 تنظیمات شخصی‌سازی برای شامل کردن:
-  - نام برند
-  - دسته‌بندی
-  - ویژگی‌های محصول
-- 🎨 رابط کاربری مدرن و ریسپانسیو
-- 📱 سازگار با موبایل و دسکتاپ
-- 🔍 نمایش تصاویر و ویژگی‌های محصول به صورت کشویی
+## ✨ Features
 
-## 🚀 شروع به کار
+- 🤖 Smart name generation using OpenAI GPT
+- 🔄 Automatic product information retrieval from Basalam URLs
+- ✍️ Manual product information input support
+- 📏 Adjustable name length (short, medium, long)
+- 🎯 Customization preferences for including:
+  - Brand names
+  - Categories
+  - Product features
+- 🎨 Modern and responsive UI
+- 📱 Mobile and desktop compatible
+- 🔍 Collapsible product images and attributes sections
+- 📋 One-click copy functionality for generated names
+- 🔒 Secure API handling through Helicone
+- 📊 API usage monitoring and analytics
 
-### پیش‌نیازها
+## 🚀 Getting Started
 
-- Node.js 18 یا بالاتر
-- npm یا yarn
-- کلید API از OpenAI
-- کلید API از Helicone (اختیاری - برای مانیتورینگ)
+### Prerequisites
 
-### نصب و راه‌اندازی
+- Node.js 18 or higher
+- npm or yarn
+- Helicone API key (for OpenAI API access and monitoring)
 
-1. کلون کردن مخزن:
+### Installation
+
+1. Clone the repository:
 ```bash
 git clone https://github.com/jozi/product-name-ai.git
 cd product-name-ai
 ```
 
-2. نصب وابستگی‌ها:
+2. Install dependencies:
 ```bash
 npm install
-# یا
+# or
 yarn install
 ```
 
-3. ساخت فایل متغیرهای محیطی:
+3. Create environment file:
 ```bash
 cp .env.example .env.local
 ```
 
-4. تنظیم متغیرهای محیطی در فایل `.env.local`:
+4. Set up environment variables in `.env.local`:
 ```env
-OPENAI_API_KEY=your_openai_key
-HELICONE_API_KEY=your_helicone_key  # اختیاری
+HELICONE_API_KEY=your_helicone_key
 ```
 
-5. اجرای برنامه در محیط توسعه:
+5. Run the development server:
 ```bash
 npm run dev
-# یا
+# or
 yarn dev
 ```
 
-6. مشاهده برنامه در مرورگر:
+6. Open in browser:
 ```
 http://localhost:3000
 ```
 
-## 🛠️ تکنولوژی‌ها
+## 🛠️ Technology Stack
 
-- **Framework**: [Next.js 13+](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **AI**: [OpenAI GPT](https://openai.com/)
-- **Monitoring**: [Helicone](https://helicone.ai/)
-- **Icons**: [Heroicons](https://heroicons.com/)
+- **Framework**: [Next.js 13+](https://nextjs.org/) - React framework for production
+- **Language**: [TypeScript](https://www.typescriptlang.org/) - Static type checking
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- **AI**: [OpenAI GPT](https://openai.com/) - Advanced language model
+- **API Management**: [Helicone](https://helicone.ai/) - OpenAI API key management and analytics
+- **UI Components**: [Heroicons](https://heroicons.com/) - Beautiful hand-crafted SVG icons
 
-## 📝 نحوه استفاده
+## 📝 Usage Guide
 
-1. لینک محصول بسلام را وارد کنید یا اطلاعات محصول را به صورت دستی وارد کنید
-2. تنظیمات مورد نظر برای طول نام و ترجیحات را انتخاب کنید
-3. دکمه "تولید نام‌های پیشنهادی" را بزنید
-4. نام‌های پیشنهادی به همراه توضیحات نمایش داده می‌شوند
-5. با کلیک روی دکمه کپی، نام مورد نظر را کپی کنید
+1. **Input Product Information**
+   - Enter a Basalam product URL for automatic information retrieval
+   - Or manually input product details:
+     - Product name
+     - Description
+     - Category
 
-## 🤝 مشارکت
+2. **Configure Generation Settings**
+   - Select desired name length (short/medium/long)
+   - Choose preferences:
+     - Include brand name
+     - Include category
+     - Include features
 
-از مشارکت شما استقبال می‌کنیم! لطفاً موارد زیر را رعایت کنید:
+3. **Generate Names**
+   - Click the "Generate Names" button
+   - Wait for AI to process and generate creative names
+   - View generated names with explanations
 
-1. Fork کردن مخزن
-2. ساخت branch جدید (`git checkout -b feature/amazing-feature`)
-3. Commit کردن تغییرات (`git commit -m 'Add amazing feature'`)
-4. Push کردن به branch (`git push origin feature/amazing-feature`)
-5. ایجاد Pull Request
+4. **Use Generated Names**
+   - Copy names with one click
+   - View reasoning behind each suggestion
+   - Generate more variations as needed
 
-## 📄 لایسنس
+## 🤝 Contributing
 
-این پروژه تحت لایسنس MIT منتشر شده است. برای اطلاعات بیشتر به فایل [LICENSE](LICENSE) مراجعه کنید.
+We welcome contributions! Please follow these steps:
 
-## 📞 پشتیبانی
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
 
-برای گزارش مشکلات یا پیشنهادات، لطفاً یک [issue](https://github.com/jozi/product-name-ai/issues) ایجاد کنید.
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🔒 Security
+
+- API keys are securely handled through environment variables
+- All API calls are proxied through Helicone for additional security
+- No sensitive data is stored or logged
+
+## 🚀 Deployment
+
+The application can be easily deployed to Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjozi%2Fproduct-name-ai)
+
+Remember to set up your environment variables in your Vercel project settings.
+
+## 📞 Contact & Support
+
+- **Issues**: Report bugs or suggest features through [GitHub Issues](https://github.com/jozi/product-name-ai/issues)
+- **Email**: Contact the maintainer at [hosein.jozi@gmail.com](mailto:hosein.jozi@gmail.com)
+
+## ⭐ Show Your Support
+
+If you find this project useful, please consider giving it a star on GitHub!
