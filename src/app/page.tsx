@@ -197,7 +197,7 @@ export default function Home() {
                     type="text"
                     value={productUrl}
                     onChange={(e) => setProductUrl(e.target.value)}
-                    placeholder="لینک محصول در بسلام را وارد کنید"
+                    placeholder="لینک محصول در باسلام را وارد کنید"
                     className="flex-1 input-field min-w-0"
                     dir="rtl"
                   />

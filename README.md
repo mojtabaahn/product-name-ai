@@ -53,6 +53,7 @@ cp .env.example .env.local
 
 4. Set up environment variables in `.env.local`:
 ```env
+OPENAI_API_KEY=your_openai_key
 HELICONE_API_KEY=your_helicone_key
 ```
 

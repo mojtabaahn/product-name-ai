@@ -1,10 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="512" height="512" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#9333EA"/>
-            <stop offset="100%" style="stop-color:#EC4899"/>
+        <!-- گرادیان اصلی -->
+        <linearGradient id="smartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8B5CF6"/>
+            <stop offset="100%" style="stop-color:#6D28D9"/>
+        </linearGradient>
+        
+        <!-- گرادیان برای خط چشمک‌زن -->
+        <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#A78BFA"/>
+            <stop offset="100%" style="stop-color:#8B5CF6"/>
         </linearGradient>
     </defs>
-    <path fill="url(#gradient)" d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.7L20 9l-8 4-8-4 8-4.3zm-9 7.3l8 4v7l-8-4v-7zm10 11v-7l8-4v7l-8 4z"/>
+    
+    <!-- مربع اصلی با گوشه‌های گرد -->
+    <rect 
+        x="4" 
+        y="4" 
+        width="16" 
+        height="16" 
+        rx="2"
+        fill="url(#smartGradient)"
+    />
+    
+    <!-- نشانگر متن (خط چشمک‌زن) -->
+    <rect 
+        x="8" 
+        y="8" 
+        width="2" 
+        height="8" 
+        fill="#fff"
+        opacity="0.9"
+    >
+        <animate 
+            attributeName="opacity"
+            values="0.9;0.3;0.9"
+            dur="1.5s"
+            repeatCount="indefinite"
+        />
+    </rect>
+    
+    <!-- نقاط هوشمند -->
+    <circle cx="14" cy="9" r="0.7" fill="#fff" opacity="0.8"/>
+    <circle cx="16" cy="9" r="0.7" fill="#fff" opacity="0.8"/>
+    
+    <!-- خط اتصال -->
+    <path 
+        d="M14 12 H18"
+        stroke="#fff"
+        stroke-width="0.7"
+        opacity="0.8"
+    />
+    
+    <!-- نماد AI -->
+    <path 
+        d="M14 14 L16 16 L18 14"
+        stroke="#fff"
+        stroke-width="0.7"
+        fill="none"
+        opacity="0.8"
+    />
 </svg>
