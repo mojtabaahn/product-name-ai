@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { redis } from '@/lib/redis';
 
 interface Attribute {
   title: string;
@@ -57,6 +58,8 @@ async function fetchBasalamProduct(url: string) {
 
 export async function POST(request: Request) {
   try {
+    await redis.incr('total_requests');
+    
     const body = await request.json();
     const { productInfo, preferences }: { productInfo: ProductInfo; preferences: Preferences } = body;
 

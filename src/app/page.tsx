@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 
 interface Preferences {
@@ -79,6 +79,21 @@ export default function Home() {
     attributes: true,
     images: true
   });
+  const [totalRequests, setTotalRequests] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch('/api/stats');
+        const data = await response.json();
+        setTotalRequests(data.totalRequests);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+      }
+    };
+
+    fetchStats();
+  }, []);
 
   const fetchProductInfo = async () => {
     setIsLoading(true);
@@ -156,6 +171,10 @@ export default function Home() {
           نام‌گذاری هوشمند محصول
         </h1>
         <div className="flex items-center gap-4">
+          <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-100">
+            <span className="text-gray-600 ml-2">تعداد درخواست‌ها تا کنون:</span>
+            <span className="font-bold text-purple-600">{totalRequests.toLocaleString('fa-IR')}</span>
+          </div>
           <a
             href="https://github.com/jozi/product-name-ai"
             target="_blank"

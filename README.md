@@ -1,6 +1,6 @@
 # Smart Product Name Generator 🎯
 
-An AI-powered tool to generate creative product names for the Basalam e-commerce platform using artificial intelligence.
+An AI-powered tool to generate creative product names using artificial intelligence.
 
 <div align="center">
   <img src="public/logo.svg" alt="Product Name AI Logo" width="120" />
@@ -9,7 +9,7 @@ An AI-powered tool to generate creative product names for the Basalam e-commerce
 ## ✨ Features
 
 - 🤖 Smart name generation using OpenAI GPT
-- 🔄 Automatic product information retrieval from Basalam URLs
+- 🔄 Automatic product information retrieval from URLs
 - ✍️ Manual product information input support
 - 📏 Adjustable name length (short, medium, long)
 - 🎯 Customization preferences for including:
@@ -21,7 +21,8 @@ An AI-powered tool to generate creative product names for the Basalam e-commerce
 - 🔍 Collapsible product images and attributes sections
 - 📋 One-click copy functionality for generated names
 - 🔒 Secure API handling through Helicone
-- 📊 API usage monitoring and analytics
+- 📊 Usage statistics with Redis
+- 📈 API usage monitoring and analytics
 
 ## 🚀 Getting Started
 
@@ -55,6 +56,8 @@ cp .env.example .env.local
 ```env
 OPENAI_API_KEY=your_openai_key
 HELICONE_API_KEY=your_helicone_key
+UPSTASH_REDIS_REST_URL=your_upstash_redis_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 ```
 
 5. Run the development server:
