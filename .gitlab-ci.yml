@@ -1,0 +1,27 @@
+variables:
+  PROJECT_NAME: product-name-ai
+  SECURE_LOG_LEVEL: error
+
+stages:
+  - buildx
+
+.build-docker:
+  stage: buildx
+  script:
+    - docker login ${DOCKER_REGISTRY_MIRROR} -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PASS}
+    - DOCKER_BUILDKIT=1 docker buildx build . --push --cache-from=type=registry,ref=${IMAGE_NAME}:build-cache
+      --cache-to=type=registry,ref=${IMAGE_NAME}:build-cache,mode=max -t ${IMAGE_NAME}:${IMAGE_TAG}
+      --output=type=image,push=true --builder builder-1
+  tags:
+    - buildx
+
+build docker image:
+  extends: .build-docker
+  only:
+    - tags
+  variables:
+    IMAGE_NAME: ${DOCKER_REGISTRY_MIRROR}/jozi/${PROJECT_NAME}
+    IMAGE_TAG: ${CI_COMMIT_TAG}
+  before_script:
+    - bash -c "if [[ ${CI_COMMIT_TAG} =~ ${SEMVER_REGEX} ]]; then exit 0; else exit
+      1; fi"
