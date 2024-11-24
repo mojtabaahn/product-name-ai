@@ -30,14 +30,6 @@ interface Preferences {
   nameLength: 'short' | 'medium' | 'long';
 }
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: "https://oai.helicone.ai/v1",
-  defaultHeaders: {
-    "Helicone-Auth": `Bearer ${process.env.HELICONE_API_KEY}`,
-  },
-});
-
 async function fetchBasalamProduct(url: string) {
   try {
     // استفاده از آدرس کامل برای API
@@ -59,6 +51,14 @@ async function fetchBasalamProduct(url: string) {
 export async function POST(request: Request) {
   try {
     await redis.incr('total_requests');
+    
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      baseURL: "https://oai.helicone.ai/v1",
+      defaultHeaders: {
+        "Helicone-Auth": `Bearer ${process.env.HELICONE_API_KEY}`,
+      },
+    });
     
     const body = await request.json();
     const { productInfo, preferences }: { productInfo: ProductInfo; preferences: Preferences } = body;
