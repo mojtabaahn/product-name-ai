@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'با کمک هوش مصنوعی، نام‌های خلاقانه برای محصولات خود بسازید',
   icons: {
     icon: [
-      { url: '/logo.svg', type: 'image/svg+xml' },
+      { url: './logo.svg', type: 'image/svg+xml' },
     ],
   },
 }
