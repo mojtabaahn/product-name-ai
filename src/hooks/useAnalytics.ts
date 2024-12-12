@@ -13,7 +13,12 @@ export const useAnalytics = () => {
     try {
       if (typeof window !== 'undefined' && window.gtag) {
         console.log('🔍 Tracking event:', eventName, eventParams);
-        window.gtag('event', eventName, eventParams);
+        window.gtag('event', eventName, {
+          ...eventParams,
+          event_category: 'user_interaction',
+          event_time: new Date().toISOString(),
+          non_interaction: false,
+        });
       } else {
         console.warn('Google Analytics not initialized');
       }
@@ -32,6 +37,8 @@ export const useAnalytics = () => {
       product_title: productInfo.title,
       product_category: productInfo.category,
       name_length: productInfo.nameLength,
+      event_label: 'name_generation',
+      value: 1,
     });
   };
 
@@ -39,6 +46,8 @@ export const useAnalytics = () => {
     console.log('📋 Tracking copy name:', name);
     trackEvent('copy_name', {
       name: name,
+      event_label: 'name_copy',
+      value: 1,
     });
   };
 
@@ -47,7 +56,22 @@ export const useAnalytics = () => {
     trackEvent('fetch_product', {
       url: url,
       success: success,
+      event_label: 'product_fetch',
+      value: success ? 1 : 0,
     });
+  };
+
+  const trackPageView = (pageName: string) => {
+    console.log('📄 Tracking page view:', pageName);
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'page_view', {
+        page_title: pageName,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        event_category: 'page_interaction',
+        non_interaction: true,
+      });
+    }
   };
 
   return {
@@ -55,5 +79,6 @@ export const useAnalytics = () => {
     trackGenerateNames,
     trackCopyName,
     trackProductFetch,
+    trackPageView,
   };
 }; 

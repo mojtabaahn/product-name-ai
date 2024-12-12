@@ -96,7 +96,7 @@ export default function Home() {
     };
 
     fetchStats();
-  }, []);
+  }, [trackPageView]);
 
   const fetchProductInfo = async () => {
     setIsLoading(true);
