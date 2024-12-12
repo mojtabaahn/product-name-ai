@@ -105,8 +105,10 @@ export default function Home() {
     setIsLoading(true);
     setError('');
     try {
+      analytics.trackProductFetch(productUrl, true);
       const response = await fetch(`/api/fetch-basalam-product?url=${encodeURIComponent(productUrl)}`);
       if (!response.ok) {
+        analytics.trackProductFetch(productUrl, false);
         throw new Error('خطا در دریافت اطلاعات محصول');
       }
       const data = await response.json();
@@ -124,6 +126,7 @@ export default function Home() {
       });
     } catch (err) {
       console.error('Error in fetchProductInfo:', err);
+      analytics.trackProductFetch(productUrl, false);
       setError(err instanceof Error ? err.message : 'خطا در دریافت اطلاعات محصول');
     } finally {
       setIsLoading(false);
@@ -145,6 +148,12 @@ export default function Home() {
     setError('');
     try {
       const inputData = productInfo || manualInput;
+      analytics.trackGenerateNames({
+        title: inputData.title,
+        category: inputData.category?.leaf || inputData.category,
+        nameLength: preferences.nameLength,
+      });
+
       const response = await fetch('/api/generate-names', {
         method: 'POST',
         headers: {
