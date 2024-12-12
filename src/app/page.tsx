@@ -148,9 +148,14 @@ export default function Home() {
     setError('');
     try {
       const inputData = productInfo || manualInput;
+      
+      const category = typeof inputData.category === 'string' 
+        ? inputData.category 
+        : inputData.category?.leaf || '';
+
       analytics.trackGenerateNames({
         title: inputData.title,
-        category: inputData.category?.leaf || inputData.category,
+        category: category,
         nameLength: preferences.nameLength,
       });
 
