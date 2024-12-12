@@ -13,6 +13,7 @@ type FormData = {
   productDescription?: string;
   category?: string;
   brandName?: string;
+  nameLength?: 'short' | 'medium' | 'long';
 };
 
 type NameSuggestion = {
@@ -60,7 +61,7 @@ export default function ProductNameForm() {
       trackGenerateNames({
         title: data.productName,
         category: data.category,
-        nameLength: data.nameLength,
+        nameLength: preferences.nameLength,
       });
 
       const response = await fetch('/api/generate-names', {
