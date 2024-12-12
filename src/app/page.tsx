@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 interface Preferences {
   includeBrand: boolean;
@@ -55,6 +56,7 @@ interface ApiResponse {
 }
 
 export default function Home() {
+  const { trackPageView, trackCopyName } = useAnalytics();
   const [productUrl, setProductUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -82,6 +84,7 @@ export default function Home() {
   const [totalRequests, setTotalRequests] = useState<number>(0);
 
   useEffect(() => {
+    trackPageView('صفحه اصلی');
     const fetchStats = async () => {
       try {
         const response = await fetch('/api/stats');
@@ -161,6 +164,16 @@ export default function Home() {
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleCopyName = (name: string) => {
+    navigator.clipboard.writeText(name);
+    trackCopyName(name);
+    const el = document.createElement('div');
+    el.className = 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm';
+    el.textContent = 'کپی شد!';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2000);
   };
 
   return (
@@ -526,15 +539,7 @@ export default function Home() {
                   <div className="flex justify-between items-start">
                     <h3 className="text-lg font-semibold text-gray-900">{name.name}</h3>
                     <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(name.name);
-                        // می‌توانیم یک نوتیفیکیشن کوچک هم نشان دهیم
-                        const el = document.createElement('div');
-                        el.className = 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm';
-                        el.textContent = 'کپی شد!';
-                        document.body.appendChild(el);
-                        setTimeout(() => el.remove(), 2000);
-                      }}
+                      onClick={() => handleCopyName(name.name)}
                       className="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors"
                       title="کپی کردن"
                     >
