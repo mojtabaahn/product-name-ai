@@ -56,7 +56,7 @@ interface ApiResponse {
 }
 
 export default function Home() {
-  const { trackPageView, trackCopyName } = useAnalytics();
+  const analytics = useAnalytics();
   const [productUrl, setProductUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -84,7 +84,10 @@ export default function Home() {
   const [totalRequests, setTotalRequests] = useState<number>(0);
 
   useEffect(() => {
-    trackPageView('صفحه اصلی');
+    analytics.trackPageView('صفحه اصلی');
+  }, []);
+
+  useEffect(() => {
     const fetchStats = async () => {
       try {
         const response = await fetch('/api/stats');
@@ -96,7 +99,7 @@ export default function Home() {
     };
 
     fetchStats();
-  }, [trackPageView]);
+  }, []);
 
   const fetchProductInfo = async () => {
     setIsLoading(true);
@@ -168,7 +171,7 @@ export default function Home() {
 
   const handleCopyName = (name: string) => {
     navigator.clipboard.writeText(name);
-    trackCopyName(name);
+    analytics.trackCopyName(name);
     const el = document.createElement('div');
     el.className = 'fixed bottom-4 left-4 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm';
     el.textContent = 'کپی شد!';
