@@ -460,19 +460,62 @@ export default function Home() {
 
         {/* بخش نمایش نتایج - سمت چپ */}
         <div className="space-y-6">
+          {/* نمایش placeholder ها قبل از تولید نام */}
+          {!generatedNames.length && !isGenerating && (
+            <div className="space-y-4">
+              <div className="p-6 bg-white/50 backdrop-blur-sm border border-dashed border-gray-300 rounded-lg">
+                <div className="flex items-center justify-center h-40">
+                  <div className="text-center space-y-3">
+                    <div className="w-16 h-16 mx-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-full h-full text-gray-400">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-600">محل نمایش نام‌های پیشنهادی</h3>
+                    <p className="text-sm text-gray-500">
+                      ۵ نام خلاقانه براساس اطلاعات محصول شما تولید خواهد شد
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* نمایش پیش‌نمایش کارت‌های نام */}
+              <div className="grid gap-4 md:grid-cols-2">
+                {[...Array(5)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="p-4 bg-white/30 border border-dashed border-gray-200 rounded-lg space-y-3"
+                  >
+                    <div className="h-7 bg-gray-100 rounded w-3/4"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-gray-100 rounded w-full"></div>
+                      <div className="h-4 bg-gray-100 rounded w-5/6"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* نمایش loading state */}
           {isGenerating && (
             <div className="space-y-4">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-24 rounded-lg overflow-hidden">
-                  <div 
-                    className="w-full h-full bg-gradient-to-r from-purple-100 via-pink-100 to-purple-100 animate-pulse-gradient"
-                    style={{ animationDelay: `${i * 0.2}s` }}
-                  ></div>
+                <div
+                  key={i}
+                  className="p-4 bg-white rounded-lg shadow-sm space-y-3 overflow-hidden"
+                >
+                  <div className="h-7 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 rounded animate-pulse-gradient"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 rounded animate-pulse-gradient"></div>
+                    <div className="h-4 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 rounded w-5/6 animate-pulse-gradient"></div>
+                  </div>
                 </div>
               ))}
             </div>
           )}
 
+          {/* نمایش نتایج */}
           {!isGenerating && generatedNames.length > 0 && (
             <div className="space-y-4">
               {generatedNames.map((name, index) => (
