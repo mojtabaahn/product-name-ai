@@ -1,5 +1,7 @@
 'use client';
 
+import { useAnalytics } from '@/hooks/useAnalytics';
+
 type NameSuggestion = {
   name: string;
   reasoning: string;
@@ -19,6 +21,13 @@ export default function NameSuggestions({
   currentNameAnalysis,
   suggestions,
 }: NameSuggestionsProps) {
+  const { trackCopyName } = useAnalytics();
+
+  const handleCopyName = (name: string) => {
+    navigator.clipboard.writeText(name);
+    trackCopyName(name);
+  };
+
   return (
     <div className="space-y-8">
       {/* Current Name Analysis */}
@@ -57,7 +66,8 @@ export default function NameSuggestions({
           {suggestions.map((suggestion, index) => (
             <div
               key={index}
-              className="rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md"
+              className="rounded-lg border border-gray-200 p-4 transition-shadow hover:shadow-md cursor-pointer"
+              onClick={() => handleCopyName(suggestion.name)}
             >
               <h4 className="mb-2 text-lg font-medium text-blue-600">
                 {suggestion.name}

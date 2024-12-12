@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import NameSuggestions from './NameSuggestions';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 type FormData = {
   productUrl?: string;
@@ -45,11 +46,22 @@ export default function ProductNameForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<ApiResponse | null>(null);
+  const { trackGenerateNames, trackProductFetch } = useAnalytics();
 
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
       setError(null);
+
+      if (data.productUrl) {
+        trackProductFetch(data.productUrl, true);
+      }
+
+      trackGenerateNames({
+        title: data.productName,
+        category: data.category,
+        nameLength: data.nameLength,
+      });
 
       const response = await fetch('/api/generate-names', {
         method: 'POST',
