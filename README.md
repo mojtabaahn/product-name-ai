@@ -145,3 +145,4 @@ Remember to set up your environment variables in your Vercel project settings.
 ## ⭐ Show Your Support
 
 If you find this project useful, please consider giving it a star on GitHub!
+
